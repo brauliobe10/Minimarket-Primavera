@@ -1,0 +1,137 @@
+ /* Contenedor principal */
+     .legal-main {
+    background-color: #f9f9f9;
+    padding: 70px 20px 40px; /* más espacio arriba */
+    min-height: 80vh;
+}
+
+        .legal-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Tarjetas de sección con Animación y Diseño */
+       .legal-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 50px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    scroll-margin-top: 160px; /* antes 100 */
+}
+
+        /* Efecto al pasar el mouse (Hover) */
+        .legal-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(227, 6, 19, 0.15); /* Sombra rojiza suave */
+        }
+
+        /* Retrasos en animación para efecto cascada */
+        .legal-section:nth-child(1) { animation-delay: 0.1s; }
+        .legal-section:nth-child(2) { animation-delay: 0.3s; }
+        .legal-section:nth-child(3) { animation-delay: 0.5s; }
+
+        /* Títulos */
+        .legal-section h2 {
+            color: #e30613; /* Tu rojo corporativo */
+            border-bottom: 3px solid #ffd93d; /* Tu amarillo corporativo */
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .legal-section h2 i {
+            color: #ffd93d;
+            text-shadow: 1px 1px 0 #e30613; /* Borde rojo al icono */
+        }
+
+        .legal-section h3 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legal-section h3 i {
+            color: #e30613;
+            font-size: 1rem;
+        }
+
+        /* Texto y Listas */
+        .legal-section p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .legal-section ul {
+            list-style: none; /* Quitamos los puntos por defecto */
+            padding-left: 10px;
+        }
+
+        .legal-section li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Icono personalizado para las listas (Check rojo) */
+        .legal-section li::before {
+            content: '\f00c'; /* Icono check de FontAwesome */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #e30613;
+        }
+
+        /* Animación Keyframes */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Botón volver arriba */
+        .back-to-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 30px;
+            color: #e30613;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        
+        .back-to-top:hover {
+            color: #b30000;
+            text-decoration: underline;
+        }
+
+        /* Ajuste para móvil */
+        @media (max-width: 768px) {
+            .legal-section {
+                padding: 30px 20px;
+            }
+            .legal-section h2 {
+                font-size: 1.8rem;
+            }
+        }

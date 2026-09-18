@@ -1,0 +1,106 @@
+Created At: 2026-07-25T20:59:03Z
+Completed At: 2026-07-25T20:59:06Z
+
+				The command completed successfully.
+				Output:
+				
+  assets\js\admin.js:310:            <td>${stockBadge}</td>
+  assets\js\admin.js:311:            <td><span class="badge ${p.estado ? 'badge-green' : 'badge-gray'}">${p.estado ? 
+'Activo' : 'Inactivo'}</span></td>
+  assets\js\admin.js:312:            <td style="white-space:nowrap;"></td>`;
+  assets\js\admin.js:313:
+  assets\js\admin.js:314:        // Botones v�a JS (evitar innerHTML de strings complejos con JSON)
+  assets\js\admin.js:315:        const td = tr.lastElementChild;
+  assets\js\admin.js:316:        const btnEditar = document.createElement('button');
+  assets\js\admin.js:317:        btnEditar.className = 'adm-btn adm-btn-ghost adm-btn-sm';
+  assets\js\admin.js:318:        btnEditar.innerHTML = '?? Editar';
+  assets\js\admin.js:319:        btnEditar.onclick   = () => abrirModalProducto(p);
+  assets\js\admin.js:320:
+  assets\js\admin.js:321:        const btnElim = document.createElement('button');
+  assets\js\admin.js:322:        btnElim.className = 'adm-btn adm-btn-danger adm-btn-sm';
+  assets\js\admin.js:323:        btnElim.style.marginLeft = '4px';
+  assets\js\admin.js:324:        btnElim.innerHTML = '??? Eliminar';
+> assets\js\admin.js:325:        btnElim.onclick   = () => eliminarProducto(p.id_producto, p.nombre);
+  assets\js\admin.js:326:
+  assets\js\admin.js:327:        td.appendChild(btnEditar);
+  assets\js\admin.js:328:        td.appendChild(btnElim);
+  assets\js\admin.js:329:        frag.appendChild(tr);
+  assets\js\admin.js:330:    });
+  assets\js\admin.js:331:
+  assets\js\admin.js:332:    tbody.innerHTML = '';
+  assets\js\admin.js:333:    tbody.appendChild(frag);
+  assets\js\admin.js:334:}
+  assets\js\admin.js:335:
+  assets\js\admin.js:336:function renderPaginacion() {
+  assets\js\admin.js:337:    let pag = document.getElementById('prodPaginacion');
+  assets\js\admin.js:338:    if (!pag) {
+  assets\js\admin.js:339:        pag = document.createElement('div');
+  assets\js\admin.js:340:        pag.id = 'prodPaginacion';
+  assets\js\admin.js:416:        stock_minimo: document.getElementById('mpStockMin').value,
+  assets\js\admin.js:417:        id_categoria: document.getElementById('mpCategoria').value,
+  assets\js\admin.js:418:        imagen:       document.getElementById('mpImagen').value.trim(),
+  assets\js\admin.js:419:        descripcion:  document.getElementById('mpDescripcion').value.trim(),
+  assets\js\admin.js:420:        estado:       document.getElementById('mpEstado').checked ? 1 : 0,
+  assets\js\admin.js:421:    };
+  assets\js\admin.js:422:    if (!payload.nombre || !payload.precio || !payload.id_categoria) {
+  assets\js\admin.js:423:        toast('Completa los campos requeridos', 'err'); return;
+  assets\js\admin.js:424:    }
+  assets\js\admin.js:425:    const data = await api('/TecW_PAF/controllers/admin/ProductosController.php',
+  assets\js\admin.js:426:        { method: 'POST', body: JSON.stringify(payload) });
+  assets\js\admin.js:427:    if (data.ok) { toast('Producto guardado'); cerrarModalProducto(); 
+cargarProductos(_prodPagina, _prodBuscar); }
+  assets\js\admin.js:428:    else toast(data.mensaje || 'Error', 'err');
+  assets\js\admin.js:429:}
+  assets\js\admin.js:430:
+> assets\js\admin.js:431:async function eliminarProducto(id, nombre) {
+  assets\js\admin.js:432:    const result = await Swal.fire({
+  assets\js\admin.js:433:        title: '�Est�s seguro?',
+  assets\js\admin.js:434:        text: `�Eliminar "${nombre}"? Esta acci�n no se puede deshacer.`,
+  assets\js\admin.js:435:        icon: 'warning',
+  assets\js\admin.js:436:        showCancelButton: true,
+  assets\js\admin.js:437:        confirmButtonColor: '#e30613',
+  assets\js\admin.js:438:        cancelButtonColor: '#64748b',
+  assets\js\admin.js:439:        confirmButtonText: 'S�, eliminar',
+  assets\js\admin.js:440:        cancelButtonText: 'Cancelar'
+  assets\js\admin.js:441:    });
+  assets\js\admin.js:442:    if (!result.isConfirmed) return;
+  assets\js\admin.js:443:    const data = await api('/TecW_PAF/controllers/admin/ProductosController.php',
+  assets\js\admin.js:444:        { method: 'POST', body: JSON.stringify({ acci�n: 'eliminar', id_producto: id }) });
+  assets\js\admin.js:445:    if (data.ok) { toast('Producto eliminado'); cargarProductos(_prodPagina, _prodBuscar); }
+  assets\js\admin.js:446:    else toast(data.mensaje || 'Error', 'err');
+  assets\js\admin.js:1273:
+  assets\js\admin.js:1274:    document.getElementById('admOverlay')?.addEventListener('click', cerrarSidebar);
+  assets\js\admin.js:1275:    document.addEventListener('keydown', e => {
+  assets\js\admin.js:1276:        if (e.key === 'Escape') {
+  assets\js\admin.js:1277:            cerrarModalProducto();
+  assets\js\admin.js:1278:            document.getElementById('modalDetallePedido')?.classList.remove('open');
+  assets\js\admin.js:1279:        }
+  assets\js\admin.js:1280:    });
+  assets\js\admin.js:1281:});
+  assets\js\admin.js:1282:
+  assets\js\admin.js:1283:window.navegar             = navegar;
+  assets\js\admin.js:1284:window.toggleSidebar       = toggleSidebar;
+  assets\js\admin.js:1285:window.abrirModalProducto  = abrirModalProducto;
+  assets\js\admin.js:1286:window.cerrarModalProducto = cerrarModalProducto;
+  assets\js\admin.js:1287:window.guardarProducto     = guardarProducto;
+> assets\js\admin.js:1288:window.eliminarProducto    = eliminarProducto;
+  assets\js\admin.js:1289:window.filtrarProductos    = filtrarProductos;
+  assets\js\admin.js:1290:window.filtrarPedidos      = filtrarPedidos;
+  assets\js\admin.js:1291:window.filtrarUsuarios     = filtrarUsuarios;
+  assets\js\admin.js:1292:window.cambiarEstadoPedido = cambiarEstadoPedido;
+  assets\js\admin.js:1293:window.verDetallePedido    = verDetallePedido;
+  assets\js\admin.js:1294:window.toggleUsuario       = toggleUsuario;
+  assets\js\admin.js:1295:window.previsualizarImgProd = previsualizarImgProd;
+  assets\js\admin.js:1296:
+  assets\js\admin.js:1297:/* �?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?
+�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?
+  assets\js\admin.js:1298:   DELIVERY
+  assets\js\admin.js:1299:�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?
+�?�?�?�?�?�?�?�?�?�?�?�?�?�?�? */
+  assets\js\admin.js:1300:let _deliveries = [], _repartidoresDisp = [];
+  assets\js\admin.js:1301:
+  assets\js\admin.js:1302:async function cargarDelivery() {
+  assets\js\admin.js:1303:    const data = await api('/TecW_PAF/controllers/admin/DeliveryController.php');
+
+
+
